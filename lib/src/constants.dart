@@ -3,8 +3,8 @@ library ruby_dart_brewery.constants;
 const String ROOT_URL = "https://storage.googleapis.com/dart-archive/channels";
 const String HOMEPAGE_URL = "https://www.dartlang.org/tools/editor/";
 
+final String beRootUrl = "${ROOT_URL}/be/raw";
 final String devRootUrl = "${ROOT_URL}/dev/release";
-final String rawRootUrl = "${ROOT_URL}/be/raw";
 final String stableRootUrl = "${ROOT_URL}/stable/release";
 
 final RegExp md5Regex = new RegExp(r'([\w]+)');

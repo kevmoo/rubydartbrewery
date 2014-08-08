@@ -29,7 +29,7 @@ void main(List<String> arguments) {
         exitCode = 2;
         return -1;
       })
-    .then((_) => writeCask(outputDirectory, "DartEditorEdge", "dart-editor-edge.rb", client, rawRootUrl, "editor/darteditor-macos-x64.zip",  '''
+    .then((_) => writeCask(outputDirectory, "DartEditorEdge", "dart-editor-edge.rb", client, beRootUrl, "editor/darteditor-macos-x64.zip",  '''
 # conflicts_with 'dart-editor-dev', :because => 'installation of dart-dsk tools in path'
 # conflicts_with 'dart-editor-edge-cs', :because => 'installation of dart-dsk tools in path'
 # conflicts_with 'dart-editor-stable', :because => 'installation of dart-dsk tools in path'
@@ -39,7 +39,7 @@ void main(List<String> arguments) {
         exitCode = 2;
         return -1;
       })
-    .then((_) => writeCaskWithCs(outputDirectory, "DartEditorEdgeCs", "dart-editor-edge-cs.rb", client, rawRootUrl, "editor/darteditor-macos-x64.zip",  '''
+    .then((_) => writeCaskWithCs(outputDirectory, "DartEditorEdgeCs", "dart-editor-edge-cs.rb", client, beRootUrl, "editor/darteditor-macos-x64.zip",  '''
 # conflicts_with 'dart-editor-dev', :because => 'installation of dart-dsk tools in path'
 # conflicts_with 'dart-editor-edge', :because => 'installation of dart-dsk tools in path'
 # conflicts_with 'dart-editor-stable', :because => 'installation of dart-dsk tools in path'
@@ -68,7 +68,7 @@ void main(List<String> arguments) {
         exitCode = 2;
         return -1;
       })
-    .then((_) => writeCaskWithCs(outputDirectory, "DartContentShellEdge", "dart-content-shell-edge.rb", client, rawRootUrl, "dartium/content_shell-macos-ia32-release.zip",  '''
+    .then((_) => writeCaskWithCs(outputDirectory, "DartContentShellEdge", "dart-content-shell-edge.rb", client, beRootUrl, "dartium/content_shell-macos-ia32-release.zip",  '''
 # conflicts_with 'dart-content-shell-dev', :because => 'installation of dart-dsk tools in path'
 # conflicts_with 'dart-content-shell-stable', :because => 'installation of dart-dsk tools in path'
 ''' + CS_INSTALL_SECTION))

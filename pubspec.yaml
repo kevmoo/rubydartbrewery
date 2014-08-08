@@ -4,3 +4,4 @@ homepage: https://github.com/PaulECoyote/rubydartbrewery
 dependencies:
   args: any
   http: any
+  path: any
