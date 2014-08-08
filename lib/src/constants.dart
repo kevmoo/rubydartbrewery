@@ -3,6 +3,8 @@ library ruby_dart_brewery.constants;
 const String ROOT_URL = "https://storage.googleapis.com/dart-archive/channels";
 const String HOMEPAGE_URL = "https://www.dartlang.org/tools/editor/";
 
+const String DART_EDITOR_MAC_64_PATH = "editor/darteditor-macos-x64.zip";
+
 final String beRootUrl = "${ROOT_URL}/be/raw";
 final String devRootUrl = "${ROOT_URL}/dev/release";
 final String stableRootUrl = "${ROOT_URL}/stable/release";

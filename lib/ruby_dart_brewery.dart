@@ -9,19 +9,77 @@ import 'package:path/path.dart' as p;
 import 'src/constants.dart';
 export 'src/constants.dart';
 
-Future<VersionInfo> getVersionInfo(String channel, [int version]) {
+Future<VersionInfo> getVersionInfo(String channel, [int revision]) {
   var path = getChannelUrl(channel);
 
-  if (version == null) {
+  if (revision == null) {
     path = p.join(path, 'latest');
   } else {
-    path = p.join(path, version.toString());
+    path = p.join(path, revision.toString());
   }
 
   path = p.join(path, 'VERSION');
 
   return http.read(path).then(JSON.decode).then((json) {
-    return new VersionInfo.fromMap(json);
+    var info = new VersionInfo.fromMap(json);
+    if (revision != null && revision != info.revision) {
+      print("WEIRD: requested revision $revision, got '${info.revision}.");
+    }
+    return info;
+  });
+}
+
+Future getPublishedBinary(String channel, String binaryPath) {
+  VersionInfo latestInfo, revisionInfo;
+
+  return getVersionInfo(channel).then((info) {
+    print('$channel\tLatest revision: ${info.revision}');
+    latestInfo = info;
+
+    return getPublishedVersionInfo(channel, info.revision);
+  }).then((info) {
+    print('$channel\tPublished revision: ${info.revision}');
+    revisionInfo = info;
+
+    // Now try to get the binary
+  });
+
+  // get 'latest' version info
+
+  // start trying to get the version info
+
+}
+
+Future<VersionInfo> getPublishedVersionInfo(String channel, int startRevision, [int attempts = 100]) {
+  assert(attempts > 0);
+  var attemptsLeft = attempts;
+  var completer = new Completer<VersionInfo>();
+
+  void work(int revision) {
+    attemptsLeft--;
+    if(attempts <= 0) {
+      completer.completeError('Could not find published version for $channel starting at revision $startRevision in $attempts attemts.');
+      return;
+    }
+
+    _getPublishedVersionInfoOrNull(channel, revision).then((info) {
+      if (info == null) {
+        work(revision - 1);
+      } else {
+        completer.complete(info);
+      }
+    });
+  }
+
+  work(startRevision);
+
+  return completer.future;
+}
+
+Future<VersionInfo> _getPublishedVersionInfoOrNull(String channel, int revision) {
+  return getVersionInfo(channel, revision).catchError((err, stack) {
+    print('\terror getting $channel - $revision');
+    return null;
   });
 }
 
