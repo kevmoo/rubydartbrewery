@@ -13,6 +13,7 @@ void main(List<String> arguments) {
   var parser = new ArgParser();
   parser.addOption('output-path', defaultsTo: './');
 
+  // TODO: print help on bad arguments
   var results = parser.parse(arguments);
   Directory outputDirectory = new Directory(results['output-path']);
 
